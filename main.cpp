@@ -70,12 +70,13 @@ int main(int argc, const char * argv[]) {
     // Sum points
     long totalSum = 0;
     for(auto wordSet : vecOfSets) {
-        int n = 0, size = wordSet->size();
-        for(auto iter2 = wordSet->begin(); iter2 != wordSet->end(); ++iter2) {
+        const int size = wordSet->size();
+        int n = 0;
+        for(auto word : *wordSet) {
             n++;
-            if(iter2 == wordSet->begin()) { continue; } // Skip first
+            if(n == 1) { continue; } // Skip first
             if(n == size) { continue; } // Skip last
-            totalSum += sumChars(*iter2);
+            totalSum += sumChars(word);
         }
         delete wordSet;
     }
