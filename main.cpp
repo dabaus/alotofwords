@@ -9,9 +9,13 @@
 #include <string>
 #include <set>
 #include <vector>
+#include <chrono>
 
-using namespace std;
 namespace fs = std::filesystem;
+using std::chrono::duration_cast;
+using std::chrono::system_clock;
+using std::chrono::milliseconds;
+using namespace std;
 
 const string VOCALS = "aeiouyáéíóúãẽĩõũâêîôûåäö";
 const string CONSONANTS = "bcdfghjklmnpqrstvwxzʃʒʧʤθð";
@@ -31,9 +35,11 @@ long sumChars(string word) {
 
 int main(int argc, const char * argv[]) {
     
-    ifstream InputFile("loTSoFWOrds.txt");
+    auto startedAt = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+    
+    ifstream inputFile("loTSoFWOrds.txt");
 
-    if(InputFile.fail()) {
+    if(inputFile.fail()) {
         cerr << "No file loTSoFWOrds.txt" << endl;
         return -1;
     }
@@ -41,10 +47,10 @@ int main(int argc, const char * argv[]) {
     // Read file, dedup and sort
     auto lenComp = [](string a, string b) { return a != b && a.size() >= b.size(); };
     set<string, decltype(lenComp)> oset;
-    for (string line; getline (InputFile, line);) {
+    for (string line; getline (inputFile, line);) {
         oset.insert(line);
     }
-    InputFile.close();
+    inputFile.close();
     
     auto alphaComp = [](string a, string b) { return a.compare(b) < 0; };
     vector<set<string, decltype(alphaComp)>*> vecOfSets;
@@ -75,7 +81,12 @@ int main(int argc, const char * argv[]) {
         }
         delete wordSet;
     }
+
+    
     cout << "TotalSum: " << totalSum << endl;
+
+    auto timeTaken =  duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count() - startedAt;
+    cout << "Time taken:  " << timeTaken << "ms" << endl;
     
     return 0;
 }
