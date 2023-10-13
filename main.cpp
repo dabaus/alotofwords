@@ -56,8 +56,7 @@ int main(int argc, const char * argv[]) {
     vector<set<string, decltype(alphaComp)>*> vecOfSets;
     // Create groups
     int slack =-1, index=-1;
-    for(auto iter = oset.begin(); iter!=oset.end(); ++iter){
-        auto word = *iter;
+    for(auto word : oset){
         auto size = word.size();
         if(slack != size) {
             // Create new set
@@ -70,8 +69,7 @@ int main(int argc, const char * argv[]) {
     
     // Sum points
     long totalSum = 0;
-    for(auto iter = vecOfSets.begin(); iter != vecOfSets.end(); ++iter) {
-        auto wordSet = *iter;
+    for(auto wordSet : vecOfSets) {
         int n = 0, size = wordSet->size();
         for(auto iter2 = wordSet->begin(); iter2 != wordSet->end(); ++iter2) {
             n++;
