@@ -22,8 +22,7 @@ long sumChars(string word) {
         auto c = word[i];
         if(VOCALS.find(c) != string::npos) {
             points += 2;
-        }
-        if(CONSONANTS.find(c) != string::npos) {
+        } else if(CONSONANTS.find(c) != string::npos) {
             points += 1;
         }
     }
@@ -47,7 +46,6 @@ int main(int argc, const char * argv[]) {
     }
     InputFile.close();
     
-
     auto alphaComp = [](string a, string b) { return a.compare(b) < 0; };
     vector<set<string, decltype(alphaComp)>*> vecOfSets;
     // Create groups
@@ -64,6 +62,7 @@ int main(int argc, const char * argv[]) {
         (*vecOfSets[index]).insert(word);
     }
     
+    // Sum points
     long totalSum = 0;
     for(auto iter = vecOfSets.begin(); iter != vecOfSets.end(); ++iter) {
         auto wordSet = *iter;
@@ -74,6 +73,7 @@ int main(int argc, const char * argv[]) {
             if(n == size) { continue; } // Skip last
             totalSum += sumChars(*iter2);
         }
+        delete wordSet;
     }
     cout << "TotalSum: " << totalSum << endl;
     
