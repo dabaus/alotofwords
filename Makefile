@@ -4,7 +4,7 @@ CC = clang++
 CFLAGS = -O3 -arch arm64
 CXXFLAGS = -stdlib=libc++
 
-all: alotofwords
+all: clean alotofwords
 	chmod +x alotofwords
 
 alotofwords.o: main.cpp
