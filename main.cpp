@@ -35,7 +35,7 @@ long sumChars(string word) {
 
 int main(int argc, const char * argv[]) {
     
-    auto startedAt = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+    const auto startedAt = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
     
     ifstream inputFile("loTSoFWOrds.txt");
 
@@ -45,14 +45,14 @@ int main(int argc, const char * argv[]) {
     }
     
     // Read file, dedup and sort
-    auto lenComp = [](string a, string b) { return a != b && a.size() >= b.size(); };
+    const auto lenComp = [](string a, string b) { return a != b && a.size() >= b.size(); };
     set<string, decltype(lenComp)> oset;
     for (string line; getline (inputFile, line);) {
         oset.insert(line);
     }
     inputFile.close();
     
-    auto alphaComp = [](string a, string b) { return a.compare(b) < 0; };
+    const auto alphaComp = [](string a, string b) { return a.compare(b) < 0; };
     vector<set<string, decltype(alphaComp)>*> vecOfSets;
     // Create groups
     int slack =-1, index=-1;
@@ -85,7 +85,7 @@ int main(int argc, const char * argv[]) {
     
     cout << "TotalSum: " << totalSum << endl;
 
-    auto timeTaken =  duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count() - startedAt;
+    const auto timeTaken =  duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count() - startedAt;
     cout << "Time taken:  " << timeTaken << "ms" << endl;
     
     return 0;
