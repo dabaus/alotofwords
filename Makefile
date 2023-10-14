@@ -1,4 +1,4 @@
-.PHONY: all clean
+.PHONY: all clean normal profile debug
 
 CC = clang++
 CFLAGS = -O3 -arch arm64
@@ -6,6 +6,10 @@ CXXFLAGS = -stdlib=libc++
 
 all: clean alotofwords
 	chmod +x alotofwords
+
+normal: all
+
+profile: all
 
 debug: CFLAGS = -g -O0 -arch arm64
 debug: all

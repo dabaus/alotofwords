@@ -33,7 +33,7 @@ private:
     static constexpr auto _lenComp = [](string a, string b) { return a != b && a.size() >= b.size(); };
     set<string, decltype(_lenComp)> _inputSet;
     
-    static long _sumChars(string word) {
+    static inline long _sumChars(string word) {
         long points = 0;
         const long size = word.size();
         for (int i=0; i<size; i++) {
@@ -88,7 +88,7 @@ public:
     }
 };
 
-long readFileAndProcess(char const *fName)
+static inline long readFileAndProcess(char const *fName)
 {
     struct stat sb;
     long cntr = 0;
