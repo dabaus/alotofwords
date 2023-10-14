@@ -64,7 +64,7 @@ int main(int argc, const char * argv[]) {
             vecOfSets.push_back(new set<string, decltype(alphaComp)>);
             index++;
         }
-        (*vecOfSets[index]).insert(word);
+        vecOfSets[index]->insert(word);
     }
     
     // Sum points
