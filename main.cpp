@@ -82,9 +82,8 @@ int main(int argc, const char * argv[]) {
     }
 
     
-    cout << "TotalSum: " << totalSum << endl;
-
     const auto timeTaken =  duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count() - startedAt;
+    cout << "TotalSum: " << totalSum << endl;
     cout << "Time taken:  " << timeTaken << "ms" << endl;
     
     return 0;
