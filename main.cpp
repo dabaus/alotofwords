@@ -35,7 +35,8 @@ private:
     
     static long _sumChars(string word) {
         long points = 0;
-        for (int i=0; i<word.size(); i++) {
+        const long size = word.size();
+        for (int i=0; i<size; i++) {
             auto c = word[i];
             if(VOCALS.find(c) != string::npos) {
                 points += 2;
