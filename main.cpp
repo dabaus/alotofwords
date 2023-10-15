@@ -24,8 +24,8 @@ using std::chrono::system_clock;
 using std::chrono::milliseconds;
 using namespace std;
 
-const string VOCALS = "aeiouyáéíóúãẽĩõũâêîôûåäö";
-const string CONSONANTS = "bcdfghjklmnpqrstvwxzʃʒʧʤθð";
+const string SPEC_VOCALS = "áéíóúãẽĩõũâêîôû";
+const string SPEC_CONSONANTS = "ʃʒʧʤθð";
 
 class Processor {
     
@@ -38,9 +38,46 @@ private:
         const long size = word->size();
         for (int i=0; i<size; i++) {
             auto c = (*word)[i];
-            if(VOCALS.find(c) != string::npos) {
+            
+            // Jump table with the most common cases which are ascii
+            switch (c) {
+                case 'a':
+                case 'e':
+                case 'i':
+                case 'o':
+                case 'u':
+                case 'y':
+                    points += 2;
+                    continue;
+                case 'b':
+                case 'c':
+                case 'd':
+                case 'f':
+                case 'g':
+                case 'h':
+                case 'j':
+                case 'k':
+                case 'l':
+                case 'm':
+                case 'n':
+                case 'p':
+                case 'q':
+                case 'r':
+                case 's':
+                case 't':
+                case 'v':
+                case 'w':
+                case 'x':
+                case 'z':
+                    points += 1;
+                    continue;
+                default:
+                    break;
+            }
+            // Check special caracters
+            if(SPEC_VOCALS.find(c) != string::npos) {
                 points += 2;
-            } else if(CONSONANTS.find(c) != string::npos) {
+            } else if(SPEC_CONSONANTS.find(c) != string::npos) {
                 points += 1;
             }
         }
