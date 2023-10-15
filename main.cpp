@@ -30,14 +30,14 @@ const string CONSONANTS = "bcdfghjklmnpqrstvwxzʃʒʧʤθð";
 class Processor {
     
 private:
-    static constexpr auto _lenComp = [](string const& a, string const& b) { return a != b && a.size() >= b.size(); };
-    set<string, decltype(_lenComp)> _inputSet;
+    static constexpr auto _lenComp = [](string *a, string *b) { return (*a) != (*b) && a->size() >= b->size(); };
+    set<string*, decltype(_lenComp)> _inputSet;
     
-    static inline long _sumChars(string &word) {
+    static inline long _sumChars(string *word) {
         long points = 0;
-        const long size = word.size();
+        const long size = word->size();
         for (int i=0; i<size; i++) {
-            auto c = word[i];
+            auto c = (*word)[i];
             if(VOCALS.find(c) != string::npos) {
                 points += 2;
             } else if(CONSONANTS.find(c) != string::npos) {
@@ -51,21 +51,21 @@ public:
     Processor() : _inputSet() {
     }
     
-    void addLine(string &line) {
+    void addLine(string *line) {
         _inputSet.insert(line);
     }
     
     long computeResult() {
-        const auto alphaComp = [](string const& a, string const& b) { return a.compare(b) < 0; };
-        vector<set<string, decltype(alphaComp)>*> vecOfSets;
+        const auto alphaComp = [](string *a, string *b) { return a->compare(*b) < 0; };
+        vector<set<string*, decltype(alphaComp)>*> vecOfSets;
         // Create groups
         int slack =-1, index=-1;
         for(auto word : _inputSet){
-            auto size = word.size();
+            auto size = word->size();
             if(slack != size) {
                 // Create new set
                 slack = size;
-                vecOfSets.push_back(new set<string, decltype(alphaComp)>);
+                vecOfSets.push_back(new set<string*, decltype(alphaComp)>);
                 index++;
             }
             vecOfSets[index]->insert(word);
@@ -114,7 +114,7 @@ static inline long readFileAndProcess(char const *fName)
             cntr++;
             strLen++;
         }
-        string s(line, strLen-1);
+        auto s =  new string(line, strLen-1);
         proc.addLine(s);
         data++;
         cntr++;
