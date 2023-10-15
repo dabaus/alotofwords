@@ -30,10 +30,10 @@ const string CONSONANTS = "bcdfghjklmnpqrstvwxzʃʒʧʤθð";
 class Processor {
     
 private:
-    static constexpr auto _lenComp = [](string a, string b) { return a != b && a.size() >= b.size(); };
+    static constexpr auto _lenComp = [](string const& a, string const& b) { return a != b && a.size() >= b.size(); };
     set<string, decltype(_lenComp)> _inputSet;
     
-    static inline long _sumChars(string word) {
+    static inline long _sumChars(string &word) {
         long points = 0;
         const long size = word.size();
         for (int i=0; i<size; i++) {
@@ -51,12 +51,12 @@ public:
     Processor() : _inputSet() {
     }
     
-    void addLine(string line) {
+    void addLine(string &line) {
         _inputSet.insert(line);
     }
     
     long computeResult() {
-        const auto alphaComp = [](string a, string b) { return a.compare(b) < 0; };
+        const auto alphaComp = [](string const& a, string const& b) { return a.compare(b) < 0; };
         vector<set<string, decltype(alphaComp)>*> vecOfSets;
         // Create groups
         int slack =-1, index=-1;
