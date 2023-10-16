@@ -23,10 +23,6 @@ using std::chrono::duration_cast;
 using std::chrono::system_clock;
 using std::chrono::milliseconds;
 using namespace std;
-
-const string SPEC_VOCALS = "áéíóúãẽĩõũâêîôû";
-const string SPEC_CONSONANTS = "ʃʒʧʤθð";
-
 class Processor {
     
 private:
@@ -47,6 +43,21 @@ private:
                 case 'o':
                 case 'u':
                 case 'y':
+                case u'á':
+                case u'é':
+                case u'í':
+                case u'ó':
+                case u'ú':
+                case u'ã':
+                case u'ẽ':
+                case u'ĩ':
+                case u'õ':
+                case u'ũ':
+                case u'â':
+                case u'ê':
+                case u'î':
+                case u'ô':
+                case u'û':
                     points += 2;
                     continue;
                 case 'b':
@@ -69,16 +80,16 @@ private:
                 case 'w':
                 case 'x':
                 case 'z':
+                case u'ʃ':
+                case u'ʒ':
+                case u'ʧ':
+                case u'ʤ':
+                case u'θ':
+                case u'ð':
                     points += 1;
                     continue;
                 default:
                     break;
-            }
-            // Check special caracters
-            if(SPEC_VOCALS.find(c) != string::npos) {
-                points += 2;
-            } else if(SPEC_CONSONANTS.find(c) != string::npos) {
-                points += 1;
             }
         }
         return points;
